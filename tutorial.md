@@ -88,4 +88,4 @@ cap.release()#Se termina la captura del video
 
 Si lograron ejecutar el codigo, veran que funciono, pero que hay mucho sonido dispersado:
 
-![alt text](http://C:\Users\franc\OneDrive\Escritorio\programacion\Repos\opencv_tutorial\sonido.png)
+![Alt text](sonido.png)
