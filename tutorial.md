@@ -3,16 +3,16 @@
 ## ¿Que es opencv?
 
 Como sus dos ultimas siglas lo indican(computer vision), opencv es una libreria de vision por computadora desarrollada por intel,
-que se puede programar con c, cpp, python y java
+que se puede programar con c, c++, python y java
 
 ## ¿Uso?
 
-Esta libreria nos va a permitir  programar análisis y procesamiento de imágenes o vídeos, seguimiento, detección y reconocimiento de objetos, rostros, formas y un monton de cosas mas.
+Esta libreria nos va a permitir  programar análisis y procesamiento de imágenes o vídeos, seguimiento/detección/reconocimiento de objetos, rostros, formas y un monton de cosas mas.
 
 ## Instalacion
 
 Opencv hace uso de una libreria muy conocida llamada numpy, que nos va a facilitar las operaciones con imagenes.
-AVISO:Esta tutorial esta puramente orientado al lenguaje de programacion python y la instalacion solo esta explicada para los sistemas windows y linux.
+:warning: **Aviso**:Esta tutorial esta puramente orientado al lenguaje de programacion python y la instalacion solo esta explicada para los sistemas windows y linux.
 (Aca yo recomiendo que si tienen un sistema operativo de distro linux lo usen, ya que en windows la Instalacion se puede volver un tanto tediosa debido a requerimientos)
 
 
