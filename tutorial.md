@@ -12,6 +12,7 @@ Esta libreria nos va a permitir  programar análisis y procesamiento de imágene
 ## Instalacion
 
 Opencv hace uso de una libreria muy conocida llamada numpy, que nos va a facilitar las operaciones con imagenes.
+
 :warning: **Aviso**:Esta tutorial esta puramente orientado al lenguaje de programacion python y la instalacion solo esta explicada para los sistemas windows y linux.
 (Aca yo recomiendo que si tienen un sistema operativo de distro linux lo usen, ya que en windows la Instalacion se puede volver un tanto tediosa debido a requerimientos)
 
