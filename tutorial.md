@@ -11,7 +11,7 @@ Esta libreria nos va a permitir  programar análisis y procesamiento de imágene
 
 ## Instalacion
 
-Opencv hace uso de una libreria muy conocida llamada numpy, que nos va a facilitar las operaciones con imagenes.
+Opencv hace uso de una libreria muy conocida llamada numpy, que nos va a facilitar las operaciones con imagenes, por lo que vamos a instalarlo a continuacion.
 
 :warning: **Aviso**:Esta tutorial esta puramente orientado al lenguaje de programacion python y la instalacion solo esta explicada para los sistemas windows y linux.
 (Aca yo recomiendo que si tienen un sistema operativo de distro linux lo usen, ya que en windows la Instalacion se puede volver un tanto tediosa debido a requerimientos)
@@ -50,13 +50,13 @@ Despues le indicamos a opencv que capture el video seleccionado en una variable 
 ```python
 cap = cv2.VideoCapture('video.avi')
 ```
-Para poder reproducir el video lo que se hace es tomar una captura por cada frame del mismo y luego mostrarla, por lo que vamos a necesitar un bucle while e indicar que lea un frame de cap para luego moostrarlo.
+Para poder reproducir el video lo que se hace es tomar una captura por cada frame del mismo y luego mostrarla, por lo que vamos a necesitar un bucle while e indicar que lea un frame de cap para luego mostrarlo:
 ```python
 while cap.isOpened():#Mientras la captura de video este abierta, es decir, no termina
     bool, frame = cap.read() #El metodo read nos da 2 variables, un boolean y el frame que no es mas que un array con los valores de la imagen que capturo
     cv2.imshow(frame) #Aca le indicamos que nos muestre el frame
 ```
-Ahora tenemos que llamar una funcion llamada waitKey(n) en la que se indica la cantidad de milisegundos que se mostrara la imagen, a su vez esta funcion lee en ascii las teclas presionadas durante su ejecucion, lo que aprovechamos a hacer un hotkey para salir del video.
+Ahora tenemos que llamar una funcion llamada waitKey(n) en la que se indica la cantidad de milisegundos que se mostrara la imagen, a su vez esta funcion lee en ascii las teclas presionadas durante su ejecucion, lo que aprovechamos a hacer un hotkey y asi salir del video:
 ```python
 while cap.isOpened():
     bool, frame = cap.read()
@@ -71,7 +71,7 @@ cap.release()#Se termina la captura del video
 
 ## Background Substraction
 
-Ahora bien, lo que queremos es detectar movimiento de personas en la imagen pero para eso necesitamos traer todo lo que no sea el fondo de la imagen(background), es decir queremos mostrar lo objetos de la superficie (foreground), esto se llama substraccion de fondo (background substraction) lo cual se logra tomando una imagen inicial y comparando los valores de los pixeles con la imagen siguiente restando asi los valores y obteniendo los que cambian. Para hacer esto existe un metodo de cv2 llamado createBackgroundSubtractorKNN() con el que modificaremos el frame.
+Ahora bien, lo que queremos es detectar movimiento de personas en la imagen pero para eso necesitamos traer todo lo que no sea el fondo de la imagen(background), es decir queremos mostrar lo objetos de la superficie (foreground), esto se llama substraccion de fondo (background substraction) lo cual se logra tomando una imagen inicial y comparando los valores de los pixeles con la imagen siguiente restando asi los valores y obteniendo los que cambian. Para hacer esto existe un metodo de cv2 llamado createBackgroundSubtractorKNN() con el que modificaremos el frame:
 ```python
 import cv2
 
@@ -114,16 +114,16 @@ while cap.isOpened():
 
 
 
-    if cv2.waitKey(40) == 27:#El numero 27 en ascii es la tecla escape
+    if cv2.waitKey(40) == 27:
         break
 
-cv2.destroyAllWindows()#Se eliminan las ventanas
-cap.release()#Se termina la captura del video
+cv2.destroyAllWindows()
+cap.release()
 ```
 ## Blur & Kernel
 
 Si lograron ejecutar el codigo, veran que funciono, pero que todavia queda mucho sonido dispersado. Este tipo de sonido en especifico se lo denomina como "sonido sal y pimienta".
-Para deshacer este sonido se suelen usar metodos de difuminado(blur). Existen muchos, pero el que mejor aplica a este tipo de sonido es el llamado "mediana de filtro" o "median filter", que recorre pixel por pixel y lo cambia a la media del valor de sus pixeles vecinos usando un "kernel". El kernel es una matriz con un valor determinado en cada una se sus cuadriculas, que al ponerlo sobre la imagen, multiplicara el valor de cada cuadricula sobre el valor de cada pixel, y luego lo sumara, obteniendo un nuevo valor para el pixel en el centro de la cuadricula. Lo aplicamos de la siguiente manera:
+Para deshacer este sonido se suelen usar metodos de difuminado(blur). Existen muchos, pero el que mejor aplica a este tipo de sonido es el llamado "mediana de filtro" o "median filter", que recorre pixel por pixel y lo cambia a la media del valor de sus pixeles vecinos usando un "kernel". El kernel es una matriz con un tamaño determinado que tendra un valor en cada una se sus cuadriculas, el cual al ponerlo sobre la imagen, multiplicara el valor de cada cuadricula por el valor del pixel que tiene encima, y luego lo sumara obteniendo un nuevo valor para el pixel en el centro de la cuadricula. Lo aplicamos de la siguiente manera:
 ```python
 import cv2
 
@@ -144,14 +144,14 @@ while cap.isOpened():
     if cv2.waitKey(40) == 27:
         break
 
-cv2.destroyAllWindows()#Se eliminan las ventanas
-cap.release()#Se termina la captura del video
+cv2.destroyAllWindows()
+cap.release()
 ```
 
 
 ## Thresholding
 
-Ahora si podemos ver que se fue la mayoria del sonido, pero tenemos otro problema, se puede ver un sombreado gris devajo de las personas en movimiento. Aca es donde entra el thresholding, que sirve para realizar operaciones sobre la imagen y dividir los pixeles en 2 grupos.El threshold va a ir pixel por pixel realizando determinada operacion sobre el mismo.En este caso usariamos uno denominado threshold to zero, y le indicamos que si el valor es menor a 150, osea gris o mas oscuro, que le cambie el valor a 0(negro):
+Ahora si podemos ver que se fue la mayoria del sonido, pero tenemos otro problema, se puede ver un sombreado gris devajo de las personas en movimiento. Aca es donde entra el thresholding, que sirve para realizar operaciones sobre la imagen y dividir los pixeles en 2 grupos. El threshold va a ir pixel por pixel realizando determinada operacion sobre el mismo. En este caso usariamos uno denominado "threshold to zero", y le indicamos que si el valor es menor a 150, osea gris o mas oscuro, que le cambie el valor a 0(negro):
 ```python
 import cv2
 
@@ -180,7 +180,7 @@ cap.release()
 
 ## Dilation
 
-Luego del threshold vemos que las sombras se fueron, por lo que nos vamos a enfocar en dilatar cada figura para que sea mas facil de detectarla, para esto vamos a necesitar crear un kernel, por lo que vamos a hacer uso de la libreria numpy en el siguiente paso:
+Luego del threshold vemos que las sombras se fueron, por lo que nos vamos a enfocar en dilatar cada figura para que sea mas facil de detectarla, para esto vamos a necesitar crear un kernel haciendo uso de la libreria numpy en el siguiente paso:
 ```python
 import cv2
 import numpy as np #Importamos numpy
@@ -200,10 +200,10 @@ while cap.isOpened():
 
     val, thresh = cv2.threshold(blur, 150 , 0, cv2.THRESH_TOZERO)
 
-    kernel = np.ones((5, 5), np.uint8)#Creamos un kernel que sera de 5x5 y tendra unos en cada cudricula
+    kernel = np.ones((5, 5), np.uint8)#Creamos un kernel que sera de 5x5 y tendra un valor de uno en cada cudricula
     dilated = cv2.dilate(thresh, kernel=kernel, iterations=1)#dilatamos el threshold y hacemos uso del kernel
 
-    cv2.imshow("ventana", dilated) #mostramos la dilated
+    cv2.imshow("ventana", dilated) #mostramos dilated
 
     if cv2.waitKey(40) == 27:
         break
@@ -214,7 +214,7 @@ cap.release()
 
 ## Contours
 
-Cv2 nos da la opcion de trabajar con contornos atravez de una funcion. Los contornos nos permiten encerrar determinada seccion de la imagen. Esto va a servir para la deteccion de figuras y luego aproximar su tamaño para saber si son personas:
+Cv2 nos da la opcion de trabajar con contornos atravez de una funcion. Los contornos nos permiten encerrar determinada seccion de la imagen, asi detectando figuras y luego aproximar su tamaño para saber si son personas:
 ```python
 import cv2
 import numpy as np
@@ -251,7 +251,8 @@ cap.release()
 
 ## Rectangles
 
-Para darle un toque final, vamos a ubicar un rectangulo sobre cada uno de los contornos(usaremos un bucle for para recorrer la variable contours) y le vamos a especificar que lo haga solamente si su area medida en pixeles es mayor a 500(area apartir de la cual se identifican las personas en este video). El codigo final quedaria asi:
+Para darle un toque final, vamos a ubicar un rectangulo sobre cada uno de los contornos(usaremos un bucle for para recorrer la variable contours) y le vamos a especificar que lo haga solamente si su area medida en pixeles es mayor a 500(area apartir de la cual se identifican las personas en este video).
+El codigo final quedaria asi:
 ```python
 import cv2
 import numpy as np
