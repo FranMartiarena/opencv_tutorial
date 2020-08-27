@@ -2,7 +2,7 @@
 
 ## ¿Que es opencv?
 
-Como sus dos ultimas siglas lo indican(computer vision), opencv es una libreria de vision por computadora desarrollada por intel,
+Como sus dos ultimas siglas lo indican(computer vision), opencv es una libreria de vision por computadora  
 que se puede programar con c, c++, python y java
 
 ## ¿Uso?
